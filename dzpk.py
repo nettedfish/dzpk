@@ -106,7 +106,7 @@ print "==========totally==========="
 if food_is_free:
     print "food is free. %2d" % (food_fee)
     for key,value in winner.items():
-        print "winner: %s, chouma is: %2d 折扣后为: %2d, should get: +%2d" % (key, chouma_origin[key], chouma[key], value)
+        print "winner: %s, chouma is: %2d 折扣后为: %2d, should get: %2d" % (key, chouma_origin[key], chouma[key], value)
     for key,value in loser.items():
         print "loser: %s, chouma is: %2d 折扣后为: %2d, should get: %2d" % (key, chouma_origin[key],chouma[key], value)
 else:
@@ -114,7 +114,7 @@ else:
     print "food is not free. %2d" % (food_fee)
     food_per_person = 1.0*food_fee/len(chouma)
     for key,value in winner.items():
-        print "winner: %s, chouma is: %2d 折扣后为 %2d, should get: +%2d" % (key, chouma_origin[key],chouma[key], value-food_per_person)
+        print "winner: %s, chouma is: %2d 折扣后为 %2d, should get: %2d" % (key, chouma_origin[key],chouma[key], value-food_per_person)
     for key,value in loser.items():
         print "loser: %s, chouma is: %2d 折扣后为 %2d, should get: %2d" % (key, chouma_origin[key],chouma[key], value-food_per_person)
 
