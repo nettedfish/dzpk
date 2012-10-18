@@ -6,7 +6,7 @@ git clone https://github.com/nettedfish/dzpk.git
 或者直接拷贝dzpk.py info.cfg这两个文件到某个文件夹下  
 用windows系统的同学,需要先安装python,最好是python2.6或以上的版本  
 
-*修改配置文件info.cfg  
+* 修改配置文件info.cfg  
 每次活动结束后,修改info.cfg的chouma section下的内容即可.  
 输入每位参赛人的姓名和最终的筹码数,运行本工具,即可看到最终的结果.  
 
