@@ -43,7 +43,7 @@ for key, value in chouma_origin.items():
     ####原始的筹码,输的总数和赢的总数相加,总和应该为0,否则应该重新清点筹码
     total_chouma = total_chouma + chouma_origin[key]
     chouma[key] = chouma_origin[key] * chouma_discount
-
+print "\n\n"
 if total_chouma != 0:
     print "筹码总和为%s,实际应该为0,请重新清点筹码！" % (total_chouma)
     sys.exit()
