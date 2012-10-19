@@ -32,7 +32,7 @@ tax_ratio = config.getfloat("meta", "tax_ratio")
 tax_start_point = config.getfloat("meta", "tax_start_point")
 food_fee = config.getfloat("meta", "food_fee")
 comments = config.get("meta", "comments")
-logger.debug("筹码折扣率为: %s 征税起点为: %s 征税税率为: %s 食物费用为: %s 其他信息: %s" % (chouma_discount, tax_start_point, tax_ratio, food_fee, comments))
+logger.debug("筹码折扣率为: %s 征税起点为: %s 征税税率为: %s 建设费用为: %s 其他信息: %s" % (chouma_discount, tax_start_point, tax_ratio, food_fee, comments))
 for key, value in config.items("chouma"):
     chouma_origin[key] = float(value)
 logger.debug("筹码原始信息为: %s" % (chouma_origin))
