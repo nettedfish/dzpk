@@ -119,4 +119,4 @@ else:
         print "loser: %s, chouma is: %2d 折扣后为 %2d, should get: %2d" % (key, chouma_origin[key],chouma[key], value-food_per_person)
 
 print comments
-print "Team Building 日期: ", datetime.date.today()
+print "Team Building 日期: ", datetime.date.today(), "\n\n"
