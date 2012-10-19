@@ -32,9 +32,11 @@ tax_ratio = config.getfloat("meta", "tax_ratio")
 tax_start_point = config.getfloat("meta", "tax_start_point")
 food_fee = config.getfloat("meta", "food_fee")
 comments = config.get("meta", "comments")
+
 logger.debug("筹码折扣率为: %s 征税起点为: %s 征税税率为: %s 建设费用为: %s 其他信息: %s" % (chouma_discount, tax_start_point, tax_ratio, food_fee, comments))
 for key, value in config.items("chouma"):
     chouma_origin[key] = float(value)
+
 logger.debug("筹码原始信息为: %s" % (chouma_origin))
 
 total_chouma = 0
@@ -43,12 +45,11 @@ for key, value in chouma_origin.items():
     ####原始的筹码,输的总数和赢的总数相加,总和应该为0,否则应该重新清点筹码
     total_chouma = total_chouma + chouma_origin[key]
     chouma[key] = chouma_origin[key] * chouma_discount
-print "\n\n"
 if total_chouma != 0:
-    print "筹码总和为%s,实际应该为0,请重新清点筹码！" % (total_chouma)
+    print "\n\n筹码总和为%s,实际应该为0,请重新清点筹码！" % (total_chouma)
     sys.exit()
 else:
-    print "筹码总数为0,没有问题！"
+    print "\n\n筹码总数为0,没有问题！"
 
 #总的纳税额,一开始为0
 total_tax = 0
@@ -118,5 +119,4 @@ else:
     for key,value in loser.items():
         print "loser: %s, chouma is: %2d 折扣后为 %2d, should get: %2d" % (key, chouma_origin[key],chouma[key], value-food_per_person)
 
-print "\n", comments
-print "Team Building 日期: ", datetime.date.today(), "\n\n"
+print "\n", comments, "\nTeam Building 日期: ", datetime.date.today(), "\n\n"
