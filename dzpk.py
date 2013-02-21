@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # author: nettedfish@qq.com
 # function: dzpk 筹码计算公式
