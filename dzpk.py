@@ -24,29 +24,29 @@ logger.addHandler(handler)
 config = ConfigParser.RawConfigParser()
 config.read(os.path.dirname(__file__) + "/info.cfg")
 
-chouma_origin = {}
-chouma = {}
+chip_origin = {}
+chip = {}
 
-chouma_discount = config.getfloat("meta", "chouma_discount")
+chip_discount = config.getfloat("meta", "chip_discount")
 tax_ratio = config.getfloat("meta", "tax_ratio")
 tax_start_point = config.getfloat("meta", "tax_start_point")
 food_fee = config.getfloat("meta", "food_fee")
 comments = config.get("meta", "comments")
 
-logger.debug("筹码折扣率为: %s 征税起点为: %s 征税税率为: %s 建设费用为: %s 其他信息: %s" % (chouma_discount, tax_start_point, tax_ratio, food_fee, comments))
-for key, value in config.items("chouma"):
-    chouma_origin[key] = float(value)
+logger.debug("筹码折扣率为: %s 征税起点为: %s 征税税率为: %s 建设费用为: %s 其他信息: %s" % (chip_discount, tax_start_point, tax_ratio, food_fee, comments))
+for key, value in config.items("chip"):
+    chip_origin[key] = float(value)
 
-logger.debug("筹码原始信息为: %s" % (chouma_origin))
+logger.debug("筹码原始信息为: %s" % (chip_origin))
 
-total_chouma = 0
+total_chip = 0
 ####对筹码打折
-for key, value in chouma_origin.items():
+for key, value in chip_origin.items():
     ####原始的筹码,输的总数和赢的总数相加,总和应该为0,否则应该重新清点筹码
-    total_chouma = total_chouma + chouma_origin[key]
-    chouma[key] = chouma_origin[key] * chouma_discount
-if total_chouma != 0:
-    print "\n\n筹码总和为%s,实际应该为0,请重新清点筹码！" % (total_chouma)
+    total_chip = total_chip + chip_origin[key]
+    chip[key] = chip_origin[key] * chip_discount
+if total_chip != 0:
+    print "\n\n筹码总和为%s,实际应该为0,请重新清点筹码！" % (total_chip)
     sys.exit()
 else:
     print "\n\n筹码总数为0,没有问题！"
@@ -62,7 +62,7 @@ winner = {}
 #输家
 loser = {}
 
-for key, value in chouma.items():
+for key, value in chip.items():
     #如果赢的大于征税的起点,那么就要按照税率来纳税
     if value >= tax_start_point:
         #纳税的钱,加到补贴池里面
@@ -94,11 +94,11 @@ if food_is_free:
 else:
     print "总共扣掉的税为: %2d, 不足于支付吃饭的钱 %2d, 因此各位需要自己付吃饭的钱!" % (total_tax, food_fee)
 
-for key, value in chouma.items():
+for key, value in chip.items():
     if value < 0:
         ##输家获得的补贴,按照比例计算。
         subsidy_for_loser = (-value*1.0/total_loser)*total_subsidy_for_dispatch
-        loser[key] = chouma[key] + subsidy_for_loser
+        loser[key] = chip[key] + subsidy_for_loser
         print "loser: %s 得到的补贴为: %s" % (key, int(subsidy_for_loser))
                 
 #到现在为止,赢家和输家的钱已经计算出来了,但是不包括晚餐:
@@ -107,16 +107,16 @@ print "==========totally==========="
 if food_is_free:
     print "food is free. %2d" % (food_fee)
     for key,value in winner.items():
-        print "winner: %s, chouma is: %2d 折扣后为: %2d, should get: %2d" % (key, chouma_origin[key], chouma[key], value)
+        print "winner: %s, chip is: %2d 折扣后为: %2d, should get: %2d" % (key, chip_origin[key], chip[key], value)
     for key,value in loser.items():
-        print "loser: %s, chouma is: %2d 折扣后为: %2d, should get: %2d" % (key, chouma_origin[key],chouma[key], value)
+        print "loser: %s, chip is: %2d 折扣后为: %2d, should get: %2d" % (key, chip_origin[key],chip[key], value)
 else:
     ##晚餐是自费的情况下,每人都要减去晚餐的钱
     print "food is not free. %2d" % (food_fee)
-    food_per_person = 1.0*food_fee/len(chouma)
+    food_per_person = 1.0*food_fee/len(chip)
     for key,value in winner.items():
-        print "winner: %s, chouma is: %2d 折扣后为 %2d, should get: %2d" % (key, chouma_origin[key],chouma[key], value-food_per_person)
+        print "winner: %s, chip is: %2d 折扣后为 %2d, should get: %2d" % (key, chip_origin[key],chip[key], value-food_per_person)
     for key,value in loser.items():
-        print "loser: %s, chouma is: %2d 折扣后为 %2d, should get: %2d" % (key, chouma_origin[key],chouma[key], value-food_per_person)
+        print "loser: %s, chip is: %2d 折扣后为 %2d, should get: %2d" % (key, chip_origin[key],chip[key], value-food_per_person)
 
 print "\n", comments, "\nTeam Building 日期: ", datetime.date.today(), "\n\n"
